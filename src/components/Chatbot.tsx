@@ -72,7 +72,7 @@ Réponds de manière concise et élégante. Si on te demande des détails sur le
         ...prev,
         {
           role: 'assistant',
-          content: 'Désolé, une erreur s\'est produite. Veuillez vérifier votre clé API Gemini.',
+          content: `Erreur technique : ${error.message}`,
         },
       ]);
     } finally {
