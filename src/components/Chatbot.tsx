@@ -22,17 +22,6 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    try {
-      const savedKey = localStorage.getItem('gemini_api_key');
-      if (savedKey) {
-        setApiKey(savedKey);
-        setNeedsApiKey(false);
-      }
-    } catch (e) {
-      console.log('localStorage not available');
-    }
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
