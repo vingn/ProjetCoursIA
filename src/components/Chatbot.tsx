@@ -32,28 +32,38 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      // Appel direct à Hugging Face sans installation
+      // Appel direct en pur JavaScript (pas de npm install nécessaire)
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+        "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta",
         {
-          headers: { Authorization: "Bearer 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" },
+          headers: { 
+            "Authorization": "Bearer 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",
+            "Content-Type": "application/json"
+          },
           method: "POST",
           body: JSON.stringify({ 
-            inputs: `[INST] Tu es Chronos, guide de l'agence TimeTravel. Réponds brièvement en français. Question: ${userMessage} [/INST]`,
+            inputs: `<|system|>\nTu es Chronos, guide de l'agence TimeTravel. Réponds de façon concise et luxueuse en français.</s>\n<|user|>\n${userMessage}</s>\n<|assistant|>`,
+            parameters: { max_new_tokens: 150, temperature: 0.7, return_full_text: false }
           }),
         }
       );
 
       const result = await response.json();
-      // On nettoie la réponse pour ne garder que le texte de l'IA
-      const fullText = result[0].generated_text;
-      const cleanText = fullText.split('[/INST]').pop()?.trim() || "Désolé, les archives temporelles sont inaccessibles.";
+      
+      // Gestion de la réponse selon le format Hugging Face
+      let text = "";
+      if (Array.isArray(result)) {
+        text = result[0].generated_text;
+      } else {
+        text = result.generated_text;
+      }
 
-      setMessages((prev) => [...prev, { role: 'assistant', content: cleanText }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: text.trim() }]);
     } catch (error) {
+      console.error(error);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: "Erreur de connexion au flux temporel." },
+        { role: 'assistant', content: "Le flux temporel est instable. Veuillez réitérer votre demande." },
       ]);
     } finally {
       setIsLoading(false);
@@ -80,9 +90,9 @@ export default function Chatbot() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-6 right-6 z-50 w-80 h-[500px] bg-slate-900 border border-amber-500/30 rounded-2xl flex flex-col overflow-hidden"
           >
-            <div className="p-4 border-b border-amber-500/20 flex justify-between items-center bg-amber-500/10">
-              <span className="text-amber-400 font-bold">Chronos IA</span>
-              <button onClick={() => setIsOpen(false)}><X className="w-5 h-5 text-slate-400" /></button>
+            <div className="p-4 border-b border-amber-500/20 flex justify-between items-center bg-amber-500/10 text-amber-400 font-bold">
+              <span>Chronos IA</span>
+              <button onClick={() => setIsOpen(false)}><X className="w-5 h-5" /></button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
@@ -100,9 +110,12 @@ export default function Chatbot() {
               <input 
                 value={input} onChange={(e) => setInput(e.target.value)} 
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                placeholder="Votre message..."
                 className="flex-1 bg-slate-800 border-none rounded p-2 text-white outline-none"
               />
-              <button onClick={sendMessage} className="bg-amber-500 p-2 rounded text-slate-900"><Send className="w-4 h-4" /></button>
+              <button onClick={sendMessage} className="bg-amber-500 p-2 rounded text-slate-900">
+                <Send className="w-4 h-4" />
+              </button>
             </div>
           </motion.div>
         )}
