@@ -48,7 +48,7 @@ export default function Chatbot() {
 
     try {
       const genAI = new GoogleGenerativeAI('AIzaSyBfdrkp-Ot5cL8_x_KCB1W8ymYvvPmf0Vc');
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
 
       const context = `Tu es Chronos, un guide expert en voyages temporels pour TimeTravel Agency, une agence de luxe.
 Tu es poli, chaleureux et professionnel.
