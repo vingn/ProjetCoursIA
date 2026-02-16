@@ -17,7 +17,7 @@ export default function Chatbot() {
     },
   ]);
   const [input, setInput] = useState('');
-  const [apiKey, setApiKey] = useState('AIzaSyCjqUbvaOj6uI1bclE76ClddKTc4AYIhrc');
+  const [apiKey, setApiKey] = useState('');
   const [needsApiKey, setNeedsApiKey] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const genAI = new GoogleGenerativeAI('AIzaSyBfdrkp-Ot5cL8_x_KCB1W8ymYvvPmf0Vc');
+      const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const context = `Tu es Chronos, un guide expert en voyages temporels pour TimeTravel Agency, une agence de luxe.
