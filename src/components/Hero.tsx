@@ -7,10 +7,18 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1920&q=80')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-slate-900/50"></div>
-      </div>
+     <div className="absolute inset-0 overflow-hidden">
+  <video 
+    autoPlay 
+    loop 
+    muted 
+    playsInline 
+    className="absolute inset-0 w-full h-full object-cover opacity-30"
+  >
+    <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1920_1080_30fps.mp4" type="video/mp4" />
+  </video>
+  <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-transparent to-slate-900"></div>
+  </div>
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
