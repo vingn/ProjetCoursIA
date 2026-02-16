@@ -17,7 +17,7 @@ export default function Chatbot() {
     },
   ]);
   const [input, setInput] = useState('');
-  const [apiKey, setApiKey] = useState('AIzaSyBfdrkp-Ot5cL8_x_KCB1W8ymYvvPmf0Vc');
+  const [apiKey, setApiKey] = useState('AIzaSyCjqUbvaOj6uI1bclE76ClddKTc4AYIhrc');
   const [needsApiKey, setNeedsApiKey] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
