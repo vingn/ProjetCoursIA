@@ -16,8 +16,8 @@ export default function Chatbot() {
       content: 'Bonjour ! Je suis Chronos, votre guide temporel personnel. Comment puis-je vous aider à planifier votre voyage à travers le temps ?',
     },
   ]);
-  const [input, setInput] = useState('AIzaSyBfdrkp-Ot5cL8_x_KCB1W8ymYvvPmf0Vc');
-  const [apiKey, setApiKey] = useState('');
+  const [input, setInput] = useState('');
+  const [apiKey, setApiKey] = useState('AIzaSyBfdrkp-Ot5cL8_x_KCB1W8ymYvvPmf0Vc');
   const [needsApiKey, setNeedsApiKey] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
